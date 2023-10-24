@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+
+    <LinearLayout
+        android:id="@+id/Linear_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:paddingBottom="16dp"
+        android:paddingTop="16dp"
+        android:background="@color/purple">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@color/purple"
+            android:src="@drawable/ic_all_incluse"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:elevation="5dp"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@color/purple"
+            android:src="@drawable/ic_happy"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:elevation="5dp"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@color/purple"
+            android:src="@drawable/ic_sunny"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:elevation="5dp"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/text_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Olá, Kotlin!"
+        android:textColor="@color/black"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/Linear_menu"
+        android:layout_marginTop="32dp"
+        android:textSize="18sp"/>
+
+    <TextView
+        android:id="@+id/text_phrase"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="@string/app_name"
+        android:textSize="22sp"
+        android:textColor="@color/black"/>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          "/>
+
+    <View
+        android:layout_width="128dp"
+        android:layout_height="3dp"
+        android:layout_below="@+id/text_phrase"
+        android:layout_centerHorizontal="true"
+        android:background="@color/purple"
+        android:elevation="5dp"/>
+
+    <Button
+        android:id="@+id/button_newphrase"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="@color/purple"
+        android:fontFamily="@font/cabin"
+        android:text="@string/new_phrase"
+        android:textAllCaps="true" />
+
+</RelativeLayout>
