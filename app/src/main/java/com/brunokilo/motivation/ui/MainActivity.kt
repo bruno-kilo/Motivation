@@ -11,61 +11,82 @@ import com.brunokilo.motivation.R
 import com.brunokilo.motivation.infra.MotivationConstants
 import com.brunokilo.motivation.infra.SecurityPreferences
 import com.brunokilo.motivation.databinding.ActivityMainBinding
+import com.brunokilo.motivation.utils.MotivationEnum
 import com.devmasterteam.motivation.repository.Mock
 
 class MainActivity : AppCompatActivity() {
     private var categoryId = MotivationConstants.FILTER.ALL
     private var binding: ActivityMainBinding? = null
 
+    private var typeState = MotivationEnum.ALL
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityMainBinding.inflate(layoutInflater).apply {
-            setContentView(root)
-            val viewsToColorize = arrayOf(imageAll, imageHappy, imageSunny)
-            val colorToApply = ContextCompat.getColor(this@MainActivity, R.color.white)
-
-            val clickListener = View.OnClickListener { view ->
-                when (view) {
-                    buttonNewphrase -> {
-                        handleNextPhrase()
-                    }
-                    imageAll -> {
-                        imageAll.setColorFilter(colorToApply)
-                        imageHappy.clearColorFilter()
-                        imageSunny.clearColorFilter()
-                        categoryId = MotivationConstants.FILTER.ALL
-                        showToast("Todas as frases")
-
-                    }
-                    imageHappy -> {
-                        imageAll.clearColorFilter()
-                        imageHappy.setColorFilter(colorToApply)
-                        imageSunny.clearColorFilter()
-                        categoryId = MotivationConstants.FILTER.HAPPY
-                        showToast("Frases que motivam")
-                    }
-                    imageSunny -> {
-                        imageAll.clearColorFilter()
-                        imageHappy.clearColorFilter()
-                        imageSunny.setColorFilter(colorToApply)
-                        categoryId = MotivationConstants.FILTER.SUNNY
-                        showToast("Frases que iluminam")
-                    }
-                }
-            }
-
-            buttonNewphrase.setOnClickListener(clickListener)
-            viewsToColorize.forEach { imageView ->
-                imageView.setOnClickListener(clickListener)
-            }
-
-            supportActionBar?.hide()
-
+        val safeBinding = ActivityMainBinding.inflate(layoutInflater).apply {
+            binding = this
         }
-        handleUserName()
 
+        setContentView(safeBinding.root)
+        supportActionBar?.hide()
+
+        initialize()
     }
+
+    private fun initialize() {
+        handleUserName()
+        setupClick()
+        setupAllButton()
+    }
+
+    private fun setupClick() {
+        binding?.apply {
+            binding?.apply {
+                buttonNewphrase.setOnClickListener { handleNextPhrase() }
+
+                imageAll.setOnClickListener { setupAllButton() }
+                imageHappy.setOnClickListener { setupHappyButton() }
+                imageSunny.setOnClickListener { setupSunnyButton() }
+            }
+        }
+    }
+
+    private fun setupAllButton() {
+        val colorToApply = ContextCompat.getColor(this@MainActivity, R.color.white)
+        typeState = MotivationEnum.ALL
+        binding?.apply {
+            imageAll.setColorFilter(colorToApply)
+            imageHappy.clearColorFilter()
+            imageSunny.clearColorFilter()
+            categoryId = MotivationConstants.FILTER.ALL
+            showToast("Todas as frases")
+        }
+    }
+
+    private fun setupHappyButton() {
+        val colorToApply = ContextCompat.getColor(this@MainActivity, R.color.white)
+        typeState = MotivationEnum.HAPPY
+        binding?.apply {
+            imageAll.clearColorFilter()
+            imageHappy.setColorFilter(colorToApply)
+            imageSunny.clearColorFilter()
+            categoryId = MotivationConstants.FILTER.HAPPY
+            showToast("Frases que motivam")
+        }
+    }
+
+    private fun setupSunnyButton() {
+        val colorToApply = ContextCompat.getColor(this@MainActivity, R.color.white)
+        typeState = MotivationEnum.SUNNY
+        binding?.apply {
+            imageAll.clearColorFilter()
+            imageHappy.clearColorFilter()
+            imageSunny.setColorFilter(colorToApply)
+            categoryId = MotivationConstants.FILTER.SUNNY
+            showToast("Frases que iluminam")
+        }
+    }
+
 
     private fun handleUserName() {
         val name = intent.getStringExtra(PARAMETER_NAME)
@@ -76,7 +97,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun handleNextPhrase() {
-        binding?.textPhrase?.text = Mock().getPhrase(categoryId)
+        binding?.textPhrase?.text = Mock().getPhrase(typeState)
     }
 
     private fun showToast(message: String) {
@@ -92,8 +113,4 @@ class MainActivity : AppCompatActivity() {
             return intent
         }
     }
-}
-
-fun View.clearColorFilter() {
-    this.clearColorFilter()
 }
