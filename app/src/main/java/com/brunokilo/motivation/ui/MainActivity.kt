@@ -1,5 +1,7 @@
 package com.brunokilo.motivation.ui
 
+import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -59,14 +61,14 @@ class MainActivity : AppCompatActivity() {
             }
 
             supportActionBar?.hide()
-            handleUserName()
 
         }
+        handleUserName()
 
     }
 
     private fun handleUserName() {
-        val name = SecurityPreferences(this).getString(MotivationConstants.KEY.USER_NAME)
+        val name = intent.getStringExtra(PARAMETER_NAME)
         if (!name.isNullOrEmpty()) {
             binding?.textName?.text = "Olá, $name!"
         }
@@ -81,6 +83,15 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
+    companion object {
+        private const val PARAMETER_NAME = "PARAMETER_NAME"
+
+        fun getIntent(context: Context, name: String): Intent {
+            val intent = Intent(context, MainActivity::class.java)
+            intent.putExtra(PARAMETER_NAME, name)
+            return intent
+        }
+    }
 }
 
 fun View.clearColorFilter() {

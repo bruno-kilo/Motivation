@@ -31,7 +31,8 @@ class UserActivity : AppCompatActivity() {
         val name = binding?.editName?.text.toString()
         if (name.isNotEmpty()) {
             SecurityPreferences(this).storeString(MotivationConstants.KEY.USER_NAME, name)
-            startActivity(Intent(this, MainActivity::class.java))
+            val intent = MainActivity.getIntent(this, name)
+            startActivity(intent)
             finish()
         } else {
             Toast.makeText(this, R.string.validation_mandatory_name, Toast.LENGTH_SHORT).show()
@@ -42,8 +43,7 @@ class UserActivity : AppCompatActivity() {
         val name = SecurityPreferences(this).getString(MotivationConstants.KEY.USER_NAME)
         if (name != null) {
             if (name.isNotEmpty()) {
-                val intent = Intent(this, MainActivity::class.java)
-                intent.putExtra(MotivationConstants.KEY.USER_NAME, name)
+                val intent = MainActivity.getIntent(this, name)
                 startActivity(intent)
                 finish()
             }
