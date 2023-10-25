@@ -2,22 +2,18 @@ package com.brunokilo.motivation.ui
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.brunokilo.motivation.R
-import com.brunokilo.motivation.infra.MotivationConstants
-import com.brunokilo.motivation.infra.SecurityPreferences
 import com.brunokilo.motivation.databinding.ActivityMainBinding
 import com.brunokilo.motivation.utils.MotivationEnum
 import com.devmasterteam.motivation.repository.Mock
 
 class MainActivity : AppCompatActivity() {
-    private var categoryId = MotivationConstants.FILTER.ALL
-    private var binding: ActivityMainBinding? = null
 
+    private var binding: ActivityMainBinding? = null
     private var typeState = MotivationEnum.ALL
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,7 +54,6 @@ class MainActivity : AppCompatActivity() {
             imageAll.setColorFilter(colorToApply)
             imageHappy.clearColorFilter()
             imageSunny.clearColorFilter()
-            categoryId = MotivationConstants.FILTER.ALL
             showToast("Todas as frases")
         }
     }
@@ -70,7 +65,6 @@ class MainActivity : AppCompatActivity() {
             imageAll.clearColorFilter()
             imageHappy.setColorFilter(colorToApply)
             imageSunny.clearColorFilter()
-            categoryId = MotivationConstants.FILTER.HAPPY
             showToast("Frases que motivam")
         }
     }
@@ -82,7 +76,6 @@ class MainActivity : AppCompatActivity() {
             imageAll.clearColorFilter()
             imageHappy.clearColorFilter()
             imageSunny.setColorFilter(colorToApply)
-            categoryId = MotivationConstants.FILTER.SUNNY
             showToast("Frases que iluminam")
         }
     }
