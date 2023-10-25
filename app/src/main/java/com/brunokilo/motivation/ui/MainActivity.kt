@@ -31,55 +31,57 @@ class MainActivity : AppCompatActivity() {
 
     private fun initialize() {
         handleUserName()
-        setupClick()
-        setupAllButton()
+        setupLayout()
     }
 
-    private fun setupClick() {
+    private fun setupLayout() {
+        val colorToApply = ContextCompat.getColor(this@MainActivity, R.color.white)
+        setupAllButtonClick(colorToApply)
         binding?.apply {
             binding?.apply {
                 buttonNewphrase.setOnClickListener { handleNextPhrase() }
 
-                imageAll.setOnClickListener { setupAllButton() }
-                imageHappy.setOnClickListener { setupHappyButton() }
-                imageSunny.setOnClickListener { setupSunnyButton() }
+                imageAll.setOnClickListener { setupAllButtonClick(colorToApply) }
+                imageHappy.setOnClickListener { setupHappyButton(colorToApply) }
+                imageSunny.setOnClickListener { setupSunnyButton(colorToApply) }
             }
         }
     }
 
-    private fun setupAllButton() {
-        val colorToApply = ContextCompat.getColor(this@MainActivity, R.color.white)
+    private fun setupAllButtonClick(colorToApply: Int) {
         typeState = MotivationEnum.ALL
         binding?.apply {
+            clearColorFilter()
             imageAll.setColorFilter(colorToApply)
-            imageHappy.clearColorFilter()
-            imageSunny.clearColorFilter()
             showToast("Todas as frases")
         }
     }
 
-    private fun setupHappyButton() {
-        val colorToApply = ContextCompat.getColor(this@MainActivity, R.color.white)
+    private fun setupHappyButton(colorToApply: Int) {
         typeState = MotivationEnum.HAPPY
         binding?.apply {
-            imageAll.clearColorFilter()
+            clearColorFilter()
             imageHappy.setColorFilter(colorToApply)
-            imageSunny.clearColorFilter()
             showToast("Frases que motivam")
         }
     }
 
-    private fun setupSunnyButton() {
-        val colorToApply = ContextCompat.getColor(this@MainActivity, R.color.white)
+    private fun setupSunnyButton(colorToApply: Int) {
         typeState = MotivationEnum.SUNNY
         binding?.apply {
-            imageAll.clearColorFilter()
-            imageHappy.clearColorFilter()
+            clearColorFilter()
             imageSunny.setColorFilter(colorToApply)
             showToast("Frases que iluminam")
         }
     }
 
+    private fun clearColorFilter() {
+        binding?.apply {
+            imageAll.clearColorFilter()
+            imageSunny.clearColorFilter()
+            imageHappy.clearColorFilter()
+        }
+    }
 
     private fun handleUserName() {
         val name = intent.getStringExtra(PARAMETER_NAME)
